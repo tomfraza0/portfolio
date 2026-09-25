@@ -1,0 +1,9 @@
+{
+    "redirects": [
+        {
+            "source": "/treemaker",
+            "destination": "https://tomfraza0.github.io/TreeMaker/",
+            "permanent": true
+        }
+    ]
+}
