@@ -1,39 +1,38 @@
-import Competencias from "../components/Competencias";
-import Contacto from "../components/Contacto";
-import Footer from "../components/Footer";
-import Projetos from "../components/Projetos";
-import Header from "../components/Header";
-import Sobre from "../components/Sobre";
-import "../styles/global.css"
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
+import Header from '../components/Header';
+import Hero from '../components/Hero';
+import Sobre from '../components/Sobre';
+import Projetos from '../components/Projetos';
+import Skills from '../components/Skills';
+import Contacto from '../components/Contacto';
+import Footer from '../components/Footer';
+import { content } from '../data/portfolio';
+import type { Language } from '../data/portfolio';
+import '../styles/global.css';
 
 function Index() {
+	const [language, setLanguage] = useState<Language>('pt');
+	const copy = content[language];
 
-    const [isLoading, setIsLoading] = useState(true);
+	useEffect(() => {
+		document.documentElement.lang = language === 'pt' ? 'pt-PT' : 'en';
+	}, [language]);
 
-    useEffect(() => {
-        const timer = setTimeout(() => {
-        setIsLoading(false);
-        }, 1500);
-
-        return () => clearTimeout(timer);
-    }, []);
-
-    return (
-        <div>
-            <div id="loader" className={isLoading ? "visible" : "hidden"}>
-                <img src="/loading.gif" />
-            </div>
-            <div id="content" className={isLoading ? "hidden" : "visible"}>
-                <Header />
-                <Sobre />
-                <Projetos />
-                <Competencias />
-                <Contacto />
-                <Footer />
-            </div>
-        </div>
-    );
+	return (
+		<main>
+			<Header
+				copy={copy.navigation}
+				language={language}
+				onLanguageChange={setLanguage}
+			/>
+			<Hero copy={copy.hero} />
+			<Sobre copy={copy.about} />
+			<Projetos copy={copy.projects} />
+			<Skills copy={copy.skills} />
+			<Contacto copy={copy.contact} />
+			<Footer copy={copy.footer} />
+		</main>
+	);
 }
 
 export default Index;

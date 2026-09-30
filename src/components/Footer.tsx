@@ -1,35 +1,20 @@
-import { FaInstagram, FaDiscord } from "react-icons/fa";
+import { FaArrowUp } from 'react-icons/fa6';
+import { profile } from '../data/portfolio';
 
-function Footer() {
-    return (
-        <footer className="footer">
-            <div className="footer-container">
-                <p className="footer-text">
-                    &copy; {new Date().getFullYear()} Tomás Frazão. Todos os direitos reservados.
-                </p>
-                <div className="footer-social">
-                    <a
-                        href="https://www.instagram.com/tomfraza0"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="Instagram"
-                        className="footer-icon instagram"
-                    >
-                        <FaInstagram />
-                    </a>
-                    <a
-                        href="https://discord.gg/tbsZVq5WEx"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="Discord"
-                        className="footer-icon discord"
-                    >
-                        <FaDiscord />
-                    </a>
-                </div>
-            </div>
-        </footer>
-    );
+type FooterProps = { copy: { phrase: string; back: string } };
+
+function Footer({ copy }: FooterProps) {
+	return (
+		<footer>
+			<span>
+				© {new Date().getFullYear()} {profile.name}
+			</span>
+			<span>{copy.phrase}</span>
+			<a href="#top">
+				{copy.back} <FaArrowUp />
+			</a>
+		</footer>
+	);
 }
 
 export default Footer;

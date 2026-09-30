@@ -1,60 +1,61 @@
-import { useState } from "react";
+import { FaGithub, FaInstagram, FaLinkedinIn } from 'react-icons/fa6';
+import { profile } from '../data/portfolio';
 
-function Contacto() {
-    const [formData, setFormData] = useState({ nome: "", email: "", mensagem: "" });
+type ContactProps = {
+	copy: {
+		label: string;
+		title: string;
+		titleAccent: string;
+		subtitle: string;
+	};
+};
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
-
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-
-        const subject = encodeURIComponent(`Contacto de ${formData.nome}`);
-        const body = encodeURIComponent(
-            `Nome: ${formData.nome}\nEmail: ${formData.email}\n\nMensagem:\n${formData.mensagem}`
-        );
-
-        window.location.href = `mailto:tomas.santos.frazao@egmail.com?subject=${subject}&body=${body}`;
-    };
-
-    return (
-        <section id="contacto" className="contacto-section">
-            <h2>Contacto</h2>
-            <form onSubmit={handleSubmit} className="contacto-form">
-                <input
-                    type="text"
-                    name="nome"
-                    placeholder="O teu nome"
-                    value={formData.nome}
-                    onChange={handleChange}
-                    required
-                    className="contacto-input"
-                />
-                <input
-                    type="email"
-                    name="email"
-                    placeholder="O teu email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className="contacto-input"
-                />
-                <textarea
-                    name="mensagem"
-                    placeholder="Escreve a tua mensagem"
-                    value={formData.mensagem}
-                    onChange={handleChange}
-                    required
-                    rows={5}
-                    className="contacto-textarea"
-                />
-                <button type="submit" className="contacto-button">
-                    Enviar
-                </button>
-            </form>
-        </section>
-    );
+function Contacto({ copy }: ContactProps) {
+	return (
+		<section className="contact section-shell" id="contacto">
+			<div className="section-kicker">
+				<span>04</span>
+				<span>{copy.label}</span>
+			</div>
+			<div className="contact-content">
+				<h2>
+					{copy.title}
+					<br />
+					<em>{copy.titleAccent}</em>
+				</h2>
+				<p className="contact-subtitle">{copy.subtitle}</p>
+				<a className="contact-email" href={`mailto:${profile.email}`}>
+					{profile.email} <span>↗</span>
+				</a>
+				<div className="socials">
+					<a
+						href={profile.links.instagram}
+						target="_blank"
+						rel="noreferrer"
+					>
+						<FaInstagram /> Instagram
+					</a>
+					<a
+						href={profile.links.linkedin}
+						target="_blank"
+						rel="noreferrer"
+					>
+						<FaLinkedinIn /> LinkedIn
+					</a>
+					<a
+						href={profile.links.github}
+						target="_blank"
+						rel="noreferrer"
+					>
+						<FaGithub /> GitHub
+					</a>
+					<span className="social-handle">
+						Discord {profile.socialHandles.discord}
+					</span>
+				</div>
+			</div>
+		</section>
+	);
 }
 
 export default Contacto;

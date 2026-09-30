@@ -1,51 +1,77 @@
-import { useEffect, useState } from 'react';
+import { FaArrowRight, FaGithub } from 'react-icons/fa6';
+import { profile } from '../data/portfolio';
 
-function Projetos() {
-    const [repos, setRepos] = useState<{
-        name: string;
-        description: string;
-        url: string;
-        languages: string[];
-    }[]>([]);
+type ProjectsProps = {
+	copy: {
+		label: string;
+		title: string;
+		titleAccent: string;
+		status: string;
+		projectType: string;
+		name: string;
+		description: string;
+		stack: string;
+		githubAction: string;
+	};
+};
 
-    useEffect(() => {
-        async function fetchRepos() {
-            const response = await fetch('https://api.github.com/users/TomG07/repos');
-            const data = await response.json();
-
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            const reposData = await Promise.all(data.map(async (repo: any) => {
-                return {
-                    name: repo.name,
-                    url: repo.html_url,
-                };
-            }));
-
-            setRepos(reposData);
-        }
-
-        fetchRepos();
-    }, []);
-
-    return (
-        <section id="projetos">
-            <h2>Os meus Projetos</h2>
-            <div className="grid-projetos">
-                {repos.map((repo, index) => (
-                    <div className="card-projeto" key={index}>
-                        <a href={repo.url} target="_blank" rel="noopener noreferrer">
-                            <img
-                                src={`https://github-readme-stats.vercel.app/api/pin/?username=TomG07&repo=${repo.name}`}
-                                alt={repo.name}
-                                className="projeto-img"
-                            />
-                        </a>
-                    </div>
-                ))}
-            </div>
-        </section>
-
-    );
+function Projetos({ copy }: ProjectsProps) {
+	return (
+		<section className="projects section-shell" id="projetos">
+			<div className="section-kicker">
+				<span>02</span>
+				<span>{copy.label}</span>
+			</div>
+			<div className="projects-heading">
+				<h2>
+					{copy.title}
+					<br />
+					<em>{copy.titleAccent}</em>
+				</h2>
+				<span>01 / 01</span>
+			</div>
+			<a
+				className="featured-project"
+				href={profile.links.treeMaker}
+				target="_blank"
+				rel="noreferrer"
+			>
+				<div className="project-visual">
+					<div className="tree-mark">
+						T<span>ree</span>
+						<br />
+						Maker
+					</div>
+					<span className="visual-caption">
+						treemaker.tomasfrazao.pt
+					</span>
+				</div>
+				<div className="project-info">
+					<div className="project-topline">
+						<span>{copy.projectType}</span>
+						<span>{copy.status}</span>
+					</div>
+					<h3>{copy.name}</h3>
+					<p>{copy.description}</p>
+					<div className="project-bottom">
+						<span>{copy.stack}</span>
+						<span className="round-arrow">
+							<FaArrowRight />
+						</span>
+					</div>
+				</div>
+			</a>
+			<div className="github-strip">
+				<div>
+					<FaGithub />
+					<span>{copy.githubAction}</span>
+				</div>
+				<a href={profile.links.github} target="_blank" rel="noreferrer">
+					{profile.socialHandles.github} <FaArrowRight />
+				</a>
+			</div>
+		</section>
+	);
 }
 
 export default Projetos;
