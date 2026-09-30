@@ -4,7 +4,7 @@ export const profile = {
     name: 'Tomás Frazão',
     email: 'tomas.santos.frazao@gmail.com',
     location: 'Leiria, Portugal',
-    photo: '/pessoal.png',
+    photo: '/personal.jpeg',
     links: {
         github: 'https://github.com/tomfraza0',
         linkedin: 'https://www.linkedin.com/in/tomfraza0/',
